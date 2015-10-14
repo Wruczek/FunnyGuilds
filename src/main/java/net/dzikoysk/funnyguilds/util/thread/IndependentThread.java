@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.thread;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,8 @@ public class IndependentThread extends Thread {
     public IndependentThread() {
         instance = this;
         this.setName("IndependentThread");
-        FunnyGuilds.info("Available Processors: " + Runtime.getRuntime().availableProcessors());
-        FunnyGuilds.info("Active Threads: " + Thread.activeCount());
+        FunnyLog.info("Available Processors: " + Runtime.getRuntime().availableProcessors());
+        FunnyLog.info("Active Threads: " + Thread.activeCount());
     }
 
     public static void action(Action... actions) {
@@ -70,7 +71,7 @@ public class IndependentThread extends Thread {
                     locker.wait();
                 }
             } catch (InterruptedException e) {
-                if (FunnyGuilds.exception(e.getCause()))
+                if (FunnyLog.exception(e.getCause()))
                     e.printStackTrace();
             }
     }
@@ -80,7 +81,7 @@ public class IndependentThread extends Thread {
             try {
                 action.execute();
             } catch (Exception e) {
-                if (FunnyGuilds.exception(e.getCause()))
+                if (FunnyLog.exception(e.getCause()))
                     e.printStackTrace();
                 continue;
             }

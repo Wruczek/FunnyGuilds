@@ -3,6 +3,7 @@ package net.dzikoysk.funnyguilds.basic;
 import com.google.common.base.Charsets;
 import com.mojang.authlib.GameProfile;
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -178,7 +179,7 @@ public class OfflineUser implements OfflinePlayer, ConfigurationSerializable {
             else if (Arrays.equals(c.getParameterTypes(), new Class<?>[] {UUID.class, String.class}))
                 type = 2;
             else
-                FunnyGuilds.error("GameProfile constructor not found!");
+                FunnyLog.error("GameProfile constructor not found!");
         }
     }
 

@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.basic;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.basic.util.BasicType;
 import net.dzikoysk.funnyguilds.basic.util.RankManager;
 import net.dzikoysk.funnyguilds.basic.util.UserUtils;
@@ -272,7 +273,7 @@ public class User implements Basic {
             Object handle = craftPlayer.getMethod("getHandle").invoke(cp);
             ping = (int) handle.getClass().getField("ping").get(handle);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
         }
         return ping;

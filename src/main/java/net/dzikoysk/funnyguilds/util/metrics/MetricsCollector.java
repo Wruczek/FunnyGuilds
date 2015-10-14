@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.metrics;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.basic.util.GuildUtils;
 import net.dzikoysk.funnyguilds.basic.util.UserUtils;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ public class MetricsCollector implements Runnable {
         try {
             metrics = new Metrics(FunnyGuilds.getInstance());
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
         }
     }

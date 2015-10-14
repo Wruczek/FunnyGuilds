@@ -1,6 +1,10 @@
 package net.dzikoysk.funnyguilds.util.element;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.basic.OfflineUser;
 import net.dzikoysk.funnyguilds.basic.User;
 import net.dzikoysk.funnyguilds.util.reflect.PacketSender;
@@ -10,6 +14,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class PlayerListManager {
 
@@ -50,25 +59,28 @@ public class PlayerListManager {
                 team.setSuffix(suffix[i]);
         }
         if (!pl.getInit()) {
-            Player[] ps = FunnyGuilds.getOnlinePlayers();
-            String[] ss = new String[ps.length];
-            for (int i = 0; i < ps.length; i++)
-                ss[i] = ps[i].getPlayerListName();
+            Collection<String> ss = Collections2.transform(Bukkit.getOnlinePlayers(), new Function<Player, String>() {
+                @Nullable @Override public String apply(Player player) {
+                    return player.getPlayerListName();
+                }
+            });
+
             pl.init(true);
             PacketSender.sendPacket(player, packets(ss, false));
             PacketSender.sendPacket(player, packets(scheme, true));
         }
         if (patch) {
-            Player[] ps = FunnyGuilds.getOnlinePlayers();
-            String[] ss = new String[ps.length];
-            for (int i = 0; i < ps.length; i++)
-                ss[i] = ps[i].getPlayerListName();
+            Collection<String> ss = Collections2.transform(Bukkit.getOnlinePlayers(), new Function<Player, String>() {
+                @Nullable @Override public String apply(Player player) {
+                    return player.getPlayerListName();
+                }
+            });
             PacketSender.sendPacket(player, packets(ss, false));
         }
         try {
             player.setScoreboard(sb);
         } catch (IllegalStateException e) {
-            FunnyGuilds.warning(
+            FunnyLog.warning(
                     "[PlayerList] java.lang.IllegalStateException: Cannot set scoreboard for invalid CraftPlayer (" + player.getClass() + ")");
         }
         user.setScoreboard(sb);
@@ -78,6 +90,14 @@ public class PlayerListManager {
         Object[] packets = new Object[ss.length];
         for (int i = 0; i < ss.length; i++)
             packets[i] = PacketPlayOutPlayerInfo.getPacket(ss[i], b, ping);
+        return packets;
+    }
+
+    private static Object[] packets(Collection<String> ss, boolean b) {
+        Object[] packets = new Object[ss.size()];
+        int i=0;
+        for (String s : ss)
+            packets[i++] = PacketPlayOutPlayerInfo.getPacket(s, b, ping);
         return packets;
     }
 

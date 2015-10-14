@@ -1,11 +1,14 @@
 package net.dzikoysk.funnyguilds.util.reflect;
 
+import com.google.common.collect.Lists;
 import net.dzikoysk.funnyguilds.FunnyGuilds;
 import net.dzikoysk.funnyguilds.basic.Guild;
 import net.dzikoysk.funnyguilds.basic.util.GuildUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class EntityUtil {
@@ -45,7 +48,7 @@ public class EntityUtil {
                 map.put(guild, id);
             } else
                 o = ids.get(map.get(guild));
-            PacketSender.sendPacket(FunnyGuilds.getOnlinePlayers(), o);
+            PacketSender.sendPacket(Bukkit.getOnlinePlayers(), o);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +67,7 @@ public class EntityUtil {
                     map.put(guild, id);
                 } else
                     o = ids.get(map.get(guild));
-                PacketSender.sendPacket(players, o);
+                PacketSender.sendPacket(Arrays.asList(players), o); // TODO array
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -76,7 +79,7 @@ public class EntityUtil {
             ids.remove(id);
             map.remove(guild);
             Object o = despawnPacket(id);
-            PacketSender.sendPacket(FunnyGuilds.getOnlinePlayers(), o);
+            PacketSender.sendPacket(Bukkit.getOnlinePlayers(), o);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,7 +92,7 @@ public class EntityUtil {
                 ids.remove(id);
                 map.remove(guild);
                 Object o = despawnPacket(id);
-                PacketSender.sendPacket(players, o);
+                PacketSender.sendPacket(Arrays.asList(players), o); // TODO array
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -102,7 +105,7 @@ public class EntityUtil {
                 ids.remove(id);
                 map.remove(guild);
                 Object o = despawnPacket(id);
-                PacketSender.sendPacket(FunnyGuilds.getOnlinePlayers(), o);
+                PacketSender.sendPacket(Bukkit.getOnlinePlayers(), o);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.runnable;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
@@ -46,7 +47,7 @@ public class ScoreboardStack implements Runnable {
         if (stack.size() < required) {
             ScoreboardManager sm = Bukkit.getScoreboardManager();
             if (sm == null) {
-                FunnyGuilds.error("[ScoreboardStack] ScoreboardManager is null!");
+                FunnyLog.error("[ScoreboardStack] ScoreboardManager is null!");
                 return;
             }
             int loop = Bukkit.getMaxPlayers() * 2 - stack.size();

@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.command;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.command.util.Executor;
 import net.dzikoysk.funnyguilds.data.Manager;
 import net.dzikoysk.funnyguilds.data.Messages;
@@ -40,7 +41,7 @@ public class ExcFunnyGuilds implements Executor {
                 if (s instanceof Player)
                     Version.check((Player) s);
                 else
-                    FunnyGuilds.info("Console can not use this command");
+                    FunnyLog.info("Console can not use this command");
                 return;
             } else if (args[0].equalsIgnoreCase("save-all")) {
                 if (s instanceof Player && !s.hasPermission("funnyguilds.admin")) {
@@ -53,16 +54,16 @@ public class ExcFunnyGuilds implements Executor {
                     try {
                         //Flat.getInstance().save(true);
                     } catch (Exception e) {
-                        FunnyGuilds.error("An error occurred while saving data to flat file! Caused by: Exception");
-                        if (FunnyGuilds.exception(e.getCause()))
+                        FunnyLog.error("An error occurred while saving data to flat file! Caused by: Exception");
+                        if (FunnyLog.exception(e.getCause()))
                             e.printStackTrace();
                     }
                 if (Settings.getInstance().mysql)
                     try {
                         //DatabaseBasic.getInstance().save(true);
                     } catch (Exception e) {
-                        FunnyGuilds.error("An error occurred while saving data to database! Caused by: Exception");
-                        if (FunnyGuilds.exception(e.getCause()))
+                        FunnyLog.error("An error occurred while saving data to database! Caused by: Exception");
+                        if (FunnyLog.exception(e.getCause()))
                             e.printStackTrace();
                     }
                 //Data.getInstance().save();
@@ -75,7 +76,7 @@ public class ExcFunnyGuilds implements Executor {
             }
         }
         s.sendMessage(
-                ChatColor.GRAY + "FunnyGuilds " + ChatColor.AQUA + FunnyGuilds.getVersion() + ChatColor.GRAY + " by " + ChatColor.AQUA + "Dzikoysk");
+                ChatColor.GRAY + "FunnyGuilds " + ChatColor.AQUA + FunnyLog.getVersion() + ChatColor.GRAY + " by " + ChatColor.AQUA + "Dzikoysk");
     }
 
 }

@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import org.bukkit.ChatColor;
 import org.bukkit.Note.Tone;
 import org.bukkit.entity.Player;
@@ -14,11 +15,11 @@ public class Version {
                 @Override
                 public void run() {
                     String latest = IOUtils.getContent("http://www.dzikoysk.net/projects/funnyguilds/latest.info");
-                    if (latest != null && !latest.equalsIgnoreCase(FunnyGuilds.getVersion())) {
+                    if (latest != null && !latest.equalsIgnoreCase(FunnyLog.getVersion())) {
                         player.sendMessage("");
                         player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------");
                         player.sendMessage(ChatColor.GRAY + "Dostepna jest nowa wersja " + ChatColor.AQUA + "FunnyGuilds" + ChatColor.GRAY + '!');
-                        player.sendMessage(ChatColor.GRAY + "Obecna: " + ChatColor.AQUA + FunnyGuilds.getVersion());
+                        player.sendMessage(ChatColor.GRAY + "Obecna: " + ChatColor.AQUA + FunnyLog.getVersion());
                         player.sendMessage(ChatColor.GRAY + "Najnowsza: " + ChatColor.AQUA + latest);
                         player.sendMessage(ChatColor.DARK_GRAY + "-----------------------------------");
                         player.sendMessage("");
@@ -29,7 +30,7 @@ public class Version {
                                 NotePitch.play(player, 4, Tone.C);
                                 Thread.sleep(interval);
                             } catch (Exception e) {
-                                if (FunnyGuilds.exception(e.getCause()))
+                                if (FunnyLog.exception(e.getCause()))
                                     e.printStackTrace();
                             }
                         }

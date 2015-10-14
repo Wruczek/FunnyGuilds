@@ -8,7 +8,7 @@ import java.io.File;
 
 public class Flat implements Data {
 
-    public static final File DATA = new File(FunnyGuilds.getFolder() + "data");
+    public static final File DATA = new File(FunnyGuilds.getInstance().getDataFolder(), "data");
     public static final File USERS = new File(DATA + File.separator + "users");
     public static final File GUILDS = new File(DATA + File.separator + "guilds");
     public static final File REGIONS = new File(DATA + File.separator + "regions");

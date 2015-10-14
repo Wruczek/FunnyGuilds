@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.reflect;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -16,7 +17,7 @@ public class Reflections {
         try {
             c = Class.forName(className);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
         }
         return c;
@@ -28,7 +29,7 @@ public class Reflections {
         try {
             c = Class.forName(className);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
         }
         return c;
@@ -38,7 +39,7 @@ public class Reflections {
         try {
             return getMethod(entity.getClass(), "getHandle").invoke(entity);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
             return null;
         }
@@ -48,7 +49,7 @@ public class Reflections {
         try {
             return getMethod(world.getClass(), "getHandle").invoke(world);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
             return null;
         }
@@ -58,7 +59,7 @@ public class Reflections {
         try {
             return cl.getDeclaredField(field_name);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
             return null;
         }
@@ -113,7 +114,7 @@ public class Reflections {
             field.setAccessible(true);
             return field;
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
             return null;
         }

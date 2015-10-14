@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.data;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.util.Parser;
 import net.dzikoysk.funnyguilds.util.StringUtils;
 import net.dzikoysk.funnyguilds.util.element.PlayerListManager;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class Settings {
 
-    private static final File SETTINGS = new File(FunnyGuilds.getFolder(), "config.yml");
+    private static final File SETTINGS = new File(FunnyGuilds.getInstance().getDataFolder(), "config.yml");
     private static final String VERSION = "4.0";
 
     private static Settings instance;
@@ -166,11 +167,11 @@ public class Settings {
         String version = pc.getString("version");
         if (version != null && version.equals(Settings.VERSION))
             return true;
-        FunnyGuilds.info("Updating the plugin settings ...");
+        FunnyLog.info("Updating the plugin settings ...");
         SETTINGS.renameTo(new File(FunnyGuilds.getInstance().getDataFolder(), "config.old"));
         Manager.loadDefaultFiles(new String[] {"config.yml"});
         pc = new PandaConfiguration(SETTINGS);
-        FunnyGuilds.info("Successfully updated settings!");
+        FunnyLog.info("Successfully updated settings!");
         return true;
     }
 
@@ -340,7 +341,7 @@ public class Settings {
                     s = StringUtils.colored(s);
                 ss[i - 1] = s;
             } catch (NumberFormatException e) {
-                FunnyGuilds.parser("[Settings] Unknown number: " + path);
+                FunnyLog.parser("[Settings] Unknown number: " + path);
             }
         }
         new PlayerListScheme(ss);

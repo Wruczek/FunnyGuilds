@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 
 import java.io.*;
 import java.net.URL;
@@ -18,7 +19,7 @@ public class IOUtils {
                 else
                     file.createNewFile();
             } catch (IOException e) {
-                if (FunnyGuilds.exception(e.getCause()))
+                if (FunnyLog.exception(e.getCause()))
                     e.printStackTrace();
             }
         }
@@ -36,9 +37,9 @@ public class IOUtils {
             body = IOUtils.toString(in, encoding);
             in.close();
         } catch (TimeoutException e) {
-            FunnyGuilds.info(e.getMessage());
+            FunnyLog.info(e.getMessage());
         } catch (Exception e) {
-            FunnyGuilds.warning(e.getMessage());
+            FunnyLog.warning(e.getMessage());
         }
         return body;
     }

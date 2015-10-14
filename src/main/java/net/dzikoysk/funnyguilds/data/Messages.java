@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.data;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.util.StringUtils;
 import net.dzikoysk.funnyguilds.util.Yamler;
 import org.bukkit.ChatColor;
@@ -24,7 +25,7 @@ public class Messages {
         Manager.loadDefaultFiles(new String[] {"messages.yml"});
         Yamler pc = loadConfiguration();
         if (pc == null) {
-            FunnyGuilds.error("[Messages] Messages.yml not loaded!");
+            FunnyLog.error("[Messages] Messages.yml not loaded!");
             return;
         }
         for (String key : pc.getKeys(true)) {
@@ -60,11 +61,11 @@ public class Messages {
         String version = pc.getString("version");
         if (version != null && version.equals(Messages.version))
             return pc;
-        FunnyGuilds.info("Updating the plugin messages ...");
+        FunnyLog.info("Updating the plugin messages ...");
         messages.renameTo(new File(FunnyGuilds.getInstance().getDataFolder(), "messages.old"));
         Manager.loadDefaultFiles(new String[] {"messages.yml"});
         pc = new Yamler(messages);
-        FunnyGuilds.info("Successfully updated messages!");
+        FunnyLog.info("Successfully updated messages!");
         return pc;
     }
 

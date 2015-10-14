@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.reflect.transition;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.basic.OfflineUser;
 import net.dzikoysk.funnyguilds.util.reflect.Reflections;
 
@@ -35,7 +36,7 @@ public class PacketPlayOutPlayerInfo {
                 return packet;
             }
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
         }
         return null;

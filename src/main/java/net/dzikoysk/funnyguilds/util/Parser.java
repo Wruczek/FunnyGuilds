@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.basic.Guild;
 import net.dzikoysk.funnyguilds.basic.User;
 import net.dzikoysk.funnyguilds.basic.util.RankManager;
@@ -32,7 +33,7 @@ public class Parser {
             if (type.equalsIgnoreCase("Enchanted_Golden_Apple"))
                 itemstack = new ItemStack(322, 1);
             else {
-                FunnyGuilds.parser("Unknown item: " + string);
+                FunnyLog.parser("Unknown item: " + string);
                 return new ItemStack(Material.AIR);
             }
         } else
@@ -43,7 +44,7 @@ public class Parser {
 
     public static Material parseMaterial(String string) {
         if (string == null) {
-            FunnyGuilds.parser("Unknown material: null");
+            FunnyLog.parser("Unknown material: null");
             return Material.AIR;
         }
         String m = string;
@@ -52,7 +53,7 @@ public class Parser {
         Material material = Material.getMaterial(m);
         if (material == null) {
             if (!string.equalsIgnoreCase("ender crystal"))
-                FunnyGuilds.parser("Unknown material: " + string);
+                FunnyLog.parser("Unknown material: " + string);
             return Material.AIR;
         }
         return material;
@@ -109,7 +110,7 @@ public class Parser {
                                     break;
                             }
                         } catch (NumberFormatException e) {
-                            FunnyGuilds.parser("Unknown number: " + value.toString());
+                            FunnyLog.parser("Unknown number: " + value.toString());
                             return time;
                         }
                     }
@@ -173,7 +174,7 @@ public class Parser {
                             .replace(string, "{PTOP-" + Integer.toString(i) + '}', "Brak");
             }
         } catch (NumberFormatException e) {
-            FunnyGuilds.parser("Unknown number: " + sb.toString());
+            FunnyLog.parser("Unknown number: " + sb.toString());
         }
         return null;
     }

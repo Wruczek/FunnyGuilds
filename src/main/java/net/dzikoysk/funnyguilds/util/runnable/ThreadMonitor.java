@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.runnable;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import org.bukkit.Bukkit;
 
 import java.lang.management.ManagementFactory;
@@ -19,15 +20,15 @@ public class ThreadMonitor implements Runnable {
         for (Thread t : Thread.getAllStackTraces().keySet()) {
             full += tmxb.getThreadCpuTime(t.getId());
         }
-        FunnyGuilds.info("================================");
+        FunnyLog.info("================================");
         for (Thread t : Thread.getAllStackTraces().keySet()) {
             if (tmxb.getThreadCpuTime(t.getId()) > 0) {
                 long l = (tmxb.getThreadCpuTime(t.getId()) * 100L) / full;
                 if (l > 0.0)
-                    FunnyGuilds.info(t.getName() + ": " + l + "%");
+                    FunnyLog.info(t.getName() + ": " + l + "%");
             }
         }
-        FunnyGuilds.info("================================");
+        FunnyLog.info("================================");
     }
 
 }

@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.util.reflect;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 public class DescriptionChanger {
@@ -17,7 +18,7 @@ public class DescriptionChanger {
         try {
             Reflections.getPrivateField(desc.getClass(), "name").set(desc, s);
         } catch (Exception e) {
-            if (FunnyGuilds.exception(e.getCause()))
+            if (FunnyLog.exception(e.getCause()))
                 e.printStackTrace();
         }
     }

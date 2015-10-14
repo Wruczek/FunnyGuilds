@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.data;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.util.thread.ActionType;
 import net.dzikoysk.funnyguilds.util.thread.IndependentThread;
 import org.bukkit.Bukkit;
@@ -42,16 +43,16 @@ public class Manager {
             try {
                 //Flat.getInstance().save(false);
             } catch (Exception e) {
-                FunnyGuilds.error("An error occurred while saving data to flat file! Caused by: Exception");
-                if (FunnyGuilds.exception(e.getCause()))
+                FunnyLog.error("An error occurred while saving data to flat file! Caused by: Exception");
+                if (FunnyLog.exception(e.getCause()))
                     e.printStackTrace();
             }
         if (Settings.getInstance().mysql)
             try {
                 //DatabaseBasic.getInstance().save(false);
             } catch (Exception e) {
-                FunnyGuilds.error("An error occurred while saving data to database! Caused by: Exception");
-                if (FunnyGuilds.exception(e.getCause()))
+                FunnyLog.error("An error occurred while saving data to database! Caused by: Exception");
+                if (FunnyLog.exception(e.getCause()))
                     e.printStackTrace();
             }
         //Data.getInstance().save();

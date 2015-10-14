@@ -23,99 +23,29 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.File;
+import static net.dzikoysk.funnyguilds.FunnyLog.*;
+
 import java.io.InputStream;
-import java.util.Collection;
 
 public class FunnyGuilds extends JavaPlugin {
 
-    private static FunnyGuilds funnyguilds;
-    private static Thread thread;
+    private static FunnyGuilds instance;
     private boolean disabling;
 
-    public FunnyGuilds() {
-        funnyguilds = this;
-    }
-
-    public static Player[] getOnlinePlayers() {
-        Collection<? extends Player> collection = Bukkit.getOnlinePlayers();
-        Player[] array = new Player[collection.size()];
-        return collection.toArray(array);
-    }
-
-    public static void update(String content) {
-        Bukkit.getLogger().info("[FunnyGuilds][Updater] > " + content);
-    }
-
-    public static void parser(String content) {
-        Bukkit.getLogger().severe("[FunnyGuilds][Parser] #> " + content);
-    }
-
-    public static void info(String content) {
-        Bukkit.getLogger().info("[FunnyGuilds] " + content);
-    }
-
-    public static void warning(String content) {
-        Bukkit.getLogger().warning("[FunnyGuilds] " + content);
-    }
-
-    public static void error(String content) {
-        Bukkit.getLogger().severe("[Server thread/ERROR] #!# " + content);
-    }
-
-    public static boolean exception(Throwable cause) {
-        if (cause == null)
-            return true;
-        return exception(cause.getMessage(), cause.getStackTrace());
-    }
-
-    public static boolean exception(String cause, StackTraceElement[] ste) {
-        error("");
-        error("[FunnyGuilds] Severe error:");
-        error("");
-        error("Server Information:");
-        error("  FunnyGuilds: " + getVersion());
-        error("  Bukkit: " + Bukkit.getBukkitVersion());
-        error("  Java: " + System.getProperty("java.version"));
-        error("  Thread: " + Thread.currentThread());
-        error("  Running CraftBukkit: " + Bukkit.getServer().getClass().getName().equals("org.bukkit.craftbukkit.CraftServer"));
-        error("");
-        if (cause == null || ste == null || ste.length < 1) {
-            error("Stack trace: no/empty exception given, dumping current stack trace instead!");
-            return true;
-        } else
-            error("Stack trace: ");
-        error("Caused by: " + cause);
-        for (StackTraceElement st : ste)
-            error("	at " + st.toString());
-        error("");
-        error("End of Error.");
-        error("");
-        return false;
-    }
-
-    public static File getFolder() {
-        return funnyguilds.getDataFolder();
-    }
-
-    public static Thread getThread() {
-        return thread;
-    }
-
-    public static String getVersion() {
-        return funnyguilds.getDescription().getVersion();
-    }
-
     public static FunnyGuilds getInstance() {
-        if (funnyguilds == null)
-            return new FunnyGuilds();
-        return funnyguilds;
+        if(instance == null) throw new IllegalStateException("Cannot get FunnyGuild instance before invoke onLoad()");
+        return instance;
+    }
+
+    public String getVersion() {
+        return getDescription().getVersion();
     }
 
     @Override
     public void onLoad() {
-        thread = Thread.currentThread();
+        instance = this;
 
         new Reloader().init();
         new DescriptionChanger(getDescription()).name(Settings.getInstance().pluginName);
@@ -157,8 +87,8 @@ public class FunnyGuilds extends JavaPlugin {
             pm.registerEvents(new BlockPhysicsListener(), this);
 
         patch();
-        update();
-        info("~ Created by & � Dzikoysk ~");
+        checkUpdate();
+        info("~ Created by & Dzikoysk");
     }
 
     @Override
@@ -172,10 +102,10 @@ public class FunnyGuilds extends JavaPlugin {
         Manager.getInstance().stop();
         Manager.getInstance().save();
 
-        funnyguilds = null;
+        instance = null;
     }
 
-    private void update() {
+    private void checkUpdate() {
         Thread thread = new Thread() {
 
             @Override
@@ -198,14 +128,16 @@ public class FunnyGuilds extends JavaPlugin {
     }
 
     private void patch() {
-        for (final Player player : Bukkit.getOnlinePlayers()) {
-            Bukkit.getScheduler().runTask(this, new Runnable() {
 
-                @Override
-                public void run() {
+        new BukkitRunnable() {
+            @Override public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     PacketExtension.registerPlayer(player);
                 }
-            });
+            }
+        }.runTaskLater(this, 1L);
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
             User user = User.get(player);
             user.getScoreboard();
             user.getDummy();

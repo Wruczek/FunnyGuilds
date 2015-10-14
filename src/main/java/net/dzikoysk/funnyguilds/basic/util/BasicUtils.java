@@ -1,6 +1,7 @@
 package net.dzikoysk.funnyguilds.basic.util;
 
 import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.basic.Basic;
 import net.dzikoysk.funnyguilds.basic.Guild;
 import net.dzikoysk.funnyguilds.basic.Region;
@@ -35,7 +36,7 @@ public class BasicUtils {
             i++;
         }
         if (i > 0)
-            FunnyGuilds.warning("Repaired conflicts: " + i);
+            FunnyLog.warning("Repaired conflicts: " + i);
     }
 
     public static Collection<String> getNames(Collection<? extends Basic> collection) {
