@@ -19,7 +19,6 @@ public class Manager {
         Settings.getInstance();
         //if(Settings.getInstance().mysql) DatabaseBasic.getInstance().load();
         //else Flat.getInstance().load();
-        Data.getInstance();
     }
 
     public static void loadDefaultFiles(String[] files) {

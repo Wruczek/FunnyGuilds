@@ -1,7 +1,9 @@
 package net.dzikoysk.funnyguilds.basic;
 
 import net.dzikoysk.funnyguilds.basic.util.BasicType;
+import net.dzikoysk.funnyguilds.data.Database;
 import net.dzikoysk.funnyguilds.data.Settings;
+import net.dzikoysk.funnyguilds.data.value.IntegerValue;
 
 public class Rank implements Comparable<Rank> {
 
@@ -11,7 +13,7 @@ public class Rank implements Comparable<Rank> {
     private Guild guild;
     private User user;
     private int points;
-    private int kills;
+    private IntegerValue kills;
     private int deaths;
 
     public Rank(Basic basic) {
@@ -23,6 +25,8 @@ public class Rank implements Comparable<Rank> {
         else if (this.type == BasicType.USER) {
             this.user = (User) basic;
             this.points = Settings.getInstance().rankStart;
+            Database database = null;
+            this.kills = new IntegerValue(0, "kills", database.createRankDataSource(this));
         }
     }
 
@@ -39,7 +43,7 @@ public class Rank implements Comparable<Rank> {
     }
 
     public void addKill() {
-        this.kills += 1;
+        this.kills.add(1);
         this.basic.passVariable("rank");
     }
 
@@ -73,11 +77,11 @@ public class Rank implements Comparable<Rank> {
     }
 
     public int getKills() {
-        return this.kills;
+        return this.kills.get();
     }
 
     public void setKills(int i) {
-        this.kills = i;
+        this.kills.set(i);
         this.basic.passVariable("rank");
     }
 
