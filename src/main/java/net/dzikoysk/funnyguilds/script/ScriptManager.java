@@ -1,9 +1,9 @@
 package net.dzikoysk.funnyguilds.script;
 
 import net.dzikoysk.funnyguilds.util.IOUtils;
-import net.dzikoysk.panda.Panda;
-import net.dzikoysk.panda.PandaLoader;
-import net.dzikoysk.panda.PandaScript;
+import org.panda_lang.panda.Panda;
+import org.panda_lang.panda.PandaLoader;
+import org.panda_lang.panda.PandaScript;
 
 import java.io.File;
 
