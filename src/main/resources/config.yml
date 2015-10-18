@@ -314,6 +314,7 @@ mysql:
   hostname: localhost
   port: 3306
   database: db
+  prefix: funnyguilds_
   user: root
   password: passwd
   
