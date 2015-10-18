@@ -315,7 +315,7 @@ database:
   password: 'password'
 
   # Ustawienia SQLite
-  file: './plugins/funnyguilds.db'
+  file: './plugins/FunnyGuilds-Reloaded/funnyguilds.db'
 
 # Config Version
-version: 4.0
+version: 4.0-RELOADED
