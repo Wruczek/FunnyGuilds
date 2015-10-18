@@ -28,7 +28,7 @@ public class DatabaseThread extends Thread {
     }
 
     private void handleQuery(DatabaseQuery query) {
-        Database database = null; // TODO
+        Database database = Database.getInstance();
 
         if (query instanceof ReadQuery)
             database.read((ReadQuery)query);

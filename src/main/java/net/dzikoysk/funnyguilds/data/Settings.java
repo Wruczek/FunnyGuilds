@@ -14,11 +14,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import net.dzikoysk.funnyguilds.ndb.Database;
+import net.dzikoysk.funnyguilds.ndb.sql.MySQLDatabase;
+import net.dzikoysk.funnyguilds.ndb.sql.SQLiteDatabase;
 
 public class Settings {
 
     private static final File SETTINGS = new File(FunnyGuilds.getInstance().getDataFolder(), "config.yml");
-    private static final String VERSION = "4.0";
+    private static final String VERSION = "4.0-RELOADED";
 
     private static Settings instance;
     public String pluginName;
@@ -140,14 +143,6 @@ public class Settings {
     public String axcMove;
     public String axcValidity;
     public String axcName;
-    public int dataInterval;
-    public boolean flat;
-    public boolean mysql;
-    public String mysqlHostname;
-    public String mysqlPort;
-    public String mysqlDatabase;
-    public String mysqlUser;
-    public String mysqlPassword;
     private PandaConfiguration pc;
 
     public Settings() {
@@ -416,16 +411,25 @@ public class Settings {
         this.axcValidity = pc.getString("commands.admin.validity");
         this.axcName = pc.getString("commands.admin.name");
 
-        // Data Section
-        this.dataInterval = pc.getInt("data-interval");
-        this.flat = pc.getBoolean("data-type.flat");
-        this.mysql = pc.getBoolean("data-type.mysql");
-        if (this.mysql) {
-            this.mysqlHostname = pc.getString("mysql.hostname");
-            this.mysqlPort = pc.getString("mysql.port");
-            this.mysqlDatabase = pc.getString("mysql.database");
-            this.mysqlUser = pc.getString("mysql.user");
-            this.mysqlPassword = pc.getString("mysql.password");
+        // database
+        Database database = null;
+        switch (pc.getString("database.engine").toLowerCase()) {
+            case "mysql":
+                database = new MySQLDatabase(
+                        pc.getString("database.host"),
+                        pc.getInt("database.port"),
+                        pc.getString("database.database"),
+                        pc.getString("database.username"),
+                        pc.getString("database.password")
+                );
+                break;
+            case "sqlite":
+                database = new SQLiteDatabase(new File(pc.getString("database.file")));
+                break;
+            default: throw new UnsupportedOperationException("The database engine was not specifited");
         }
+
+        if (database != null)
+            Database.setInstance(database);
     }
 }

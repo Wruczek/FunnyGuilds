@@ -2,6 +2,7 @@ package net.dzikoysk.funnyguilds.ndb;
 
 public abstract class Database implements IDatabase {
 
+    private static Database instance;
     private final String url, username, password;
 
     public Database(String url, String username, String password) {
@@ -20,5 +21,17 @@ public abstract class Database implements IDatabase {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public static Database getInstance() {
+        if (instance == null)
+            throw new UnsupportedOperationException("Database is not setup");
+        return instance;
+    }
+
+    public static void setInstance(Database database) {
+        if (instance != null)
+            throw new UnsupportedOperationException("Database is already setup");
+        instance = database;
     }
 }

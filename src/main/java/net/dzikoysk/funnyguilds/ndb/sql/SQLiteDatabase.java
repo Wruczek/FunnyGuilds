@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import net.dzikoysk.funnyguilds.FunnyGuilds;
+import net.dzikoysk.funnyguilds.FunnyLog;
 import net.dzikoysk.funnyguilds.ndb.Database;
 import net.dzikoysk.funnyguilds.ndb.query.ReadQuery;
 import net.dzikoysk.funnyguilds.ndb.query.WriteQuery;
@@ -54,7 +54,7 @@ public class SQLiteDatabase extends Database {
             Class.forName(this.getDriver());
             this.connection = DriverManager.getConnection(this.getConnectionURL());
         } catch (ClassNotFoundException ex) {
-            FunnyGuilds.exception("Could not connect to the database file: " + ex.getLocalizedMessage(), ex.getStackTrace());
+            FunnyLog.exception("Could not connect to the database file: " + ex.getLocalizedMessage(), ex.getStackTrace());
         }
     }
 
@@ -69,13 +69,13 @@ public class SQLiteDatabase extends Database {
             if (result != null)
                 result.close();
         } catch (SQLException ex) {
-            FunnyGuilds.exception("Could not execute the SQL query: " + ex.getLocalizedMessage(), ex.getStackTrace());
+            FunnyLog.exception("Could not execute the SQL query: " + ex.getLocalizedMessage(), ex.getStackTrace());
         } finally {
             if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    FunnyGuilds.exception("Could not close the SQL statement: " + ex.getLocalizedMessage(), ex.getStackTrace());
+                    FunnyLog.exception("Could not close the SQL statement: " + ex.getLocalizedMessage(), ex.getStackTrace());
                 }
             }
         }
@@ -88,13 +88,13 @@ public class SQLiteDatabase extends Database {
             statement = this.getConnection().prepareStatement(query.getQuery());
             query.prepare(statement).executeUpdate();
         } catch (SQLException ex) {
-            FunnyGuilds.exception("Could not execute the SQL query: " + ex.getLocalizedMessage(), ex.getStackTrace());
+            FunnyLog.exception("Could not execute the SQL query: " + ex.getLocalizedMessage(), ex.getStackTrace());
         } finally {
             if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    FunnyGuilds.exception("Could not close the SQL statement: " + ex.getLocalizedMessage(), ex.getStackTrace());
+                    FunnyLog.exception("Could not close the SQL statement: " + ex.getLocalizedMessage(), ex.getStackTrace());
                 }
             }
         }

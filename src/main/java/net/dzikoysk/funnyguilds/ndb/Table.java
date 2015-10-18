@@ -117,6 +117,8 @@ public enum Table {
 
     ;
 
+    private static String tableSchema;
+
     private final String name;
     private final String[] schema;
 
@@ -130,7 +132,7 @@ public enum Table {
     }
 
     public String getName() {
-        return "funnyguilds_" + this.getId(); // TODO pobierać prefix z konfiguracji
+        return parseTableSchema(this.getId());
     }
 
     public String[] getSchema() {
@@ -148,5 +150,17 @@ public enum Table {
                 builder.append(", ");
         }
         return builder.toString();
+    }
+
+    public static String getTableSchema() {
+        return tableSchema;
+    }
+
+    public static String parseTableSchema(String tableName) {
+        return getTableSchema().replace("{TABLENAME}", tableName);
+    }
+
+    public static void setTableSchema(String schema) {
+        tableSchema = schema;
     }
 }
