@@ -1,5 +1,6 @@
 package net.dzikoysk.funnyguilds.script;
 
+import net.dzikoysk.funnyguilds.FunnyGuilds;
 import net.dzikoysk.funnyguilds.util.IOUtils;
 import org.panda_lang.panda.Panda;
 import org.panda_lang.panda.PandaLoader;
@@ -22,7 +23,7 @@ public class ScriptManager {
     }
 
     public void start() {
-        File home = IOUtils.getFile("plugins/FunnyGuilds/scripts", true);
+		File home = IOUtils.getFile(FunnyGuilds.getInstance().getDataFolder() + File.separator + "scripts", true);
         File[] files = home.listFiles();
         if (files == null)
             return;

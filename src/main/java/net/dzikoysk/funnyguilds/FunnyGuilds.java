@@ -39,10 +39,6 @@ public class FunnyGuilds extends JavaPlugin {
         return instance;
     }
 
-    public String getVersion() {
-        return getDescription().getVersion();
-    }
-
     @Override
     public void onLoad() {
         instance = this;
@@ -157,4 +153,8 @@ public class FunnyGuilds extends JavaPlugin {
     public boolean isDisabling() {
         return disabling;
     }
+
+	public static String getVersion() {
+	    return getInstance().getDescription().getVersion();
+	}
 }

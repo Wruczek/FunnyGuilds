@@ -18,20 +18,19 @@ public class AxcAdd implements Executor {
     @Override
     public void execute(CommandSender sender, String[] args) {
         Messages m = Messages.getInstance();
-        Player player = (Player) sender;
 
-        if (!player.hasPermission("funnyguilds.admin")) {
-            player.sendMessage(m.getMessage("permission"));
+        if (!sender.hasPermission("funnyguilds.admin")) {
+            sender.sendMessage(m.getMessage("permission"));
             return;
         }
 
         if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + "Podaj tag gildii!");
+            sender.sendMessage(ChatColor.RED + "Podaj tag gildii!");
             return;
         }
 
         if (args.length < 2) {
-            player.sendMessage(ChatColor.RED + "Podaj nick gracza!");
+            sender.sendMessage(ChatColor.RED + "Podaj nick gracza!");
             return;
         }
 
@@ -40,13 +39,13 @@ public class AxcAdd implements Executor {
         OfflineUser offline = user.getOfflineUser();
 
         if (user.hasGuild()) {
-            player.sendMessage(ChatColor.RED + "Ten gracz ma juz gildie!");
+            sender.sendMessage(ChatColor.RED + "Ten gracz ma juz gildie!");
             return;
         }
 
         Guild guild = GuildUtils.byTag(tag);
         if (guild == null) {
-            player.sendMessage(ChatColor.RED + "Taka gildia nie istnieje!");
+            sender.sendMessage(ChatColor.RED + "Taka gildia nie istnieje!");
             return;
         }
 

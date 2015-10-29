@@ -144,6 +144,9 @@ public class Settings {
     public String axcValidity;
     public String axcName;
     private PandaConfiguration pc;
+	public boolean mysql;
+	public boolean flat;
+	public int dataInterval;
 
     public Settings() {
         Manager.loadDefaultFiles(new String[] {"config.yml"});
@@ -412,6 +415,9 @@ public class Settings {
         this.axcName = pc.getString("commands.admin.name");
 
         // database
+        
+        this.dataInterval = pc.getInt("data-interval");
+        
         Database database = null;
         switch (pc.getString("database.engine").toLowerCase()) {
             case "mysql":
@@ -422,9 +428,11 @@ public class Settings {
                         pc.getString("database.username"),
                         pc.getString("database.password")
                 );
+                mysql = true;
                 break;
             case "sqlite":
                 database = new SQLiteDatabase(new File(pc.getString("database.file")));
+                flat = true;
                 break;
             default: throw new UnsupportedOperationException("The database engine was not specifited");
         }

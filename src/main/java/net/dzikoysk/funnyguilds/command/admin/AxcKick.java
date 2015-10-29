@@ -1,5 +1,10 @@
 package net.dzikoysk.funnyguilds.command.admin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import net.dzikoysk.funnyguilds.basic.Guild;
 import net.dzikoysk.funnyguilds.basic.OfflineUser;
 import net.dzikoysk.funnyguilds.basic.User;
@@ -7,10 +12,6 @@ import net.dzikoysk.funnyguilds.command.util.Executor;
 import net.dzikoysk.funnyguilds.data.Messages;
 import net.dzikoysk.funnyguilds.util.thread.ActionType;
 import net.dzikoysk.funnyguilds.util.thread.IndependentThread;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class AxcKick implements Executor {
 
@@ -18,15 +19,14 @@ public class AxcKick implements Executor {
     public void execute(CommandSender sender, String[] args) {
 
         Messages m = Messages.getInstance();
-        Player player = (Player) sender;
 
-        if (!player.hasPermission("funnyguilds.admin")) {
-            player.sendMessage(m.getMessage("permission"));
+        if (!sender.hasPermission("funnyguilds.admin")) {
+            sender.sendMessage(m.getMessage("permission"));
             return;
         }
 
         if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + "Podaj nick gracza!");
+            sender.sendMessage(ChatColor.RED + "Podaj nick gracza!");
             return;
         }
 
@@ -35,12 +35,12 @@ public class AxcKick implements Executor {
         Player p = Bukkit.getPlayer(user.getName());
 
         if (!user.hasGuild()) {
-            player.sendMessage(ChatColor.RED + "Ten gracz nie ma gildii!");
+            sender.sendMessage(ChatColor.RED + "Ten gracz nie ma gildii!");
             return;
         }
 
         if (user.isOwner()) {
-            player.sendMessage(ChatColor.RED + "Ten gracz jest zalozycielem gildii, nie mozna go wyrzucic!");
+            sender.sendMessage(ChatColor.RED + "Ten gracz jest zalozycielem gildii, nie mozna go wyrzucic!");
             return;
         }
 
@@ -52,9 +52,9 @@ public class AxcKick implements Executor {
         user.removeGuild();
 
         if (p != null)
-            IndependentThread.action(ActionType.PREFIX_GLOBAL_UPDATE_PLAYER, player);
+            IndependentThread.action(ActionType.PREFIX_GLOBAL_UPDATE_PLAYER, sender);
 
-        player.sendMessage(m.getMessage("kickToOwner")
+        sender.sendMessage(m.getMessage("kickToOwner")
                         .replace("{PLAYER}", user.getName())
         );
 

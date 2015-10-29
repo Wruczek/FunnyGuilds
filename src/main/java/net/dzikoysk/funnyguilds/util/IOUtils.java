@@ -1,12 +1,15 @@
 package net.dzikoysk.funnyguilds.util;
 
-import net.dzikoysk.funnyguilds.FunnyGuilds;
-import net.dzikoysk.funnyguilds.FunnyLog;
-
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.TimeoutException;
+
+import net.dzikoysk.funnyguilds.FunnyLog;
 
 public class IOUtils {
 

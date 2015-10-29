@@ -18,6 +18,7 @@ public class Commands {
 
     public void register() {
         Settings s = Settings.getInstance();
+        
         new ExecutorCaller(new ExcFunnyGuilds(), "funnyguilds", null, null);
         new ExecutorCaller(new ExcCreate(), s.excCreate, "funnyguilds.create", s.excCreateAliases);
         new ExecutorCaller(new ExcDelete(), s.excDelete, "funnyguilds.delete", s.excDeleteAliases);

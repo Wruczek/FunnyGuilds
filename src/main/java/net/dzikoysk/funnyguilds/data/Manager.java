@@ -64,12 +64,11 @@ public class Manager {
         if (this.task != null)
             return;
         this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(FunnyGuilds.getInstance(), new Runnable() {
-
             @Override
             public void run() {
                 IndependentThread.action(ActionType.SAVE_DATA);
             }
-        }, Settings.getInstance().dataInterval * 60 * 20, Settings.getInstance().dataInterval * 60 * 20);
+        }, Settings.getInstance().dataInterval * 20, Settings.getInstance().dataInterval * 20);
     }
 
     public void stop() {

@@ -25,6 +25,12 @@ public class AxcMove implements Executor {
     public void execute(CommandSender sender, String[] args) {
         Settings settings = Settings.getInstance();
         Messages messages = Messages.getInstance();
+        
+        if(!(sender instanceof Player)) {
+        	sender.sendMessage(messages.getMessage("onlyPlayer"));
+        	return;
+        }
+        
         Player player = (Player) sender;
 
         if (!player.hasPermission("funnyguilds.admin")) {

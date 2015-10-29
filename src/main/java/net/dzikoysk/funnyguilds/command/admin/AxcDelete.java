@@ -1,14 +1,15 @@
 package net.dzikoysk.funnyguilds.command.admin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import net.dzikoysk.funnyguilds.basic.Guild;
 import net.dzikoysk.funnyguilds.basic.User;
 import net.dzikoysk.funnyguilds.basic.util.GuildUtils;
 import net.dzikoysk.funnyguilds.command.util.Executor;
 import net.dzikoysk.funnyguilds.data.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class AxcDelete implements Executor {
 
@@ -16,22 +17,21 @@ public class AxcDelete implements Executor {
     public void execute(CommandSender sender, String[] args) {
 
         Messages m = Messages.getInstance();
-        Player player = (Player) sender;
 
-        if (!player.hasPermission("funnyguilds.admin")) {
-            player.sendMessage(m.getMessage("permission"));
+        if (!sender.hasPermission("funnyguilds.admin")) {
+            sender.sendMessage(m.getMessage("permission"));
             return;
         }
 
         if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + "Podaj tag gildii!");
+            sender.sendMessage(ChatColor.RED + "Podaj tag gildii!");
             return;
         }
 
         String tag = args[0];
 
         if (!GuildUtils.tagExists(tag)) {
-            player.sendMessage(ChatColor.RED + "Nie ma gildii o takim tagu!");
+            sender.sendMessage(ChatColor.RED + "Nie ma gildii o takim tagu!");
             return;
         }
 
@@ -43,7 +43,7 @@ public class AxcDelete implements Executor {
 
         GuildUtils.deleteGuild(guild);
 
-        player.sendMessage(m.getMessage("deleteSuccessful")
+        sender.sendMessage(m.getMessage("deleteSuccessful")
                         .replace("{GUILD}", name)
                         .replace("{TAG}", tag)
         );
@@ -51,11 +51,11 @@ public class AxcDelete implements Executor {
         Player owner = Bukkit.getPlayer(o.getName());
         if (owner != null)
             owner.sendMessage(
-                    ChatColor.RED + "Twoja gildia zostala rozwiazana przez " + ChatColor.GRAY + player.getDisplayName()
+                    ChatColor.RED + "Twoja gildia zostala rozwiazana przez " + ChatColor.GRAY + sender.getName()
             );
 
         Bukkit.getServer().broadcastMessage(m.getMessage("broadcastDelete")
-                        .replace("{PLAYER}", player.getDisplayName())
+                        .replace("{PLAYER}", sender.getName())
                         .replace("{GUILD}", name)
                         .replace("{TAG}", tag)
         );

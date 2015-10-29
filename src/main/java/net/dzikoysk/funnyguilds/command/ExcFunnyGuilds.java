@@ -22,7 +22,6 @@ public class ExcFunnyGuilds implements Executor {
                     return;
                 }
                 Thread thread = new Thread() {
-
                     @Override
                     public void run() {
                         Manager dm = Manager.getInstance();
@@ -38,10 +37,7 @@ public class ExcFunnyGuilds implements Executor {
                 thread.start();
                 return;
             } else if (args[0].equalsIgnoreCase("check") || args[0].equalsIgnoreCase("update")) {
-                if (s instanceof Player)
-                    Version.check((Player) s);
-                else
-                    FunnyLog.info("Console can not use this command");
+                Version.check(s, false);
                 return;
             } else if (args[0].equalsIgnoreCase("save-all")) {
                 if (s instanceof Player && !s.hasPermission("funnyguilds.admin")) {
@@ -71,12 +67,13 @@ public class ExcFunnyGuilds implements Executor {
                         (System.currentTimeMillis() - l) / 1000F + "s" + ChatColor.GRAY + ")!");
                 return;
             }
+            // TODO: chyba nieaktualne?
             if (args[0].equalsIgnoreCase("admin") || args[0].equalsIgnoreCase("zarzadzaj")) {
                 return;
             }
         }
-        s.sendMessage(
-                ChatColor.GRAY + "FunnyGuilds " + ChatColor.AQUA + FunnyLog.getVersion() + ChatColor.GRAY + " by " + ChatColor.AQUA + "Dzikoysk");
+        s.sendMessage(ChatColor.GRAY + "FunnyGuilds-Reloaded " + ChatColor.AQUA + FunnyGuilds.getVersion() + ChatColor.GRAY + " by " + ChatColor.AQUA + "Dzikoysk");
+        s.sendMessage(ChatColor.GRAY + "/funnyguilds <reload/update/save-all>");
     }
 
 }

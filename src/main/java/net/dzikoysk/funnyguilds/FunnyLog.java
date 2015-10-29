@@ -35,7 +35,7 @@ public class FunnyLog {
         error("[FunnyGuilds] Severe error:");
         error("");
         error("Server Information:");
-        error("  FunnyGuilds: " + getVersion());
+        error("  FunnyGuilds: " + FunnyGuilds.getVersion());
         error("  Bukkit: " + Bukkit.getBukkitVersion());
         error("  Java: " + System.getProperty("java.version"));
         error("  Thread: " + Thread.currentThread());
@@ -53,9 +53,5 @@ public class FunnyLog {
         error("End of Error.");
         error("");
         return false;
-    }
-
-    public static String getVersion() {
-        return FunnyGuilds.getInstance().getDescription().getVersion();
     }
 }

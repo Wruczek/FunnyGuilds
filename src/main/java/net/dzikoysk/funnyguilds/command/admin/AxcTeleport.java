@@ -13,6 +13,12 @@ public class AxcTeleport implements Executor {
     @Override
     public void execute(CommandSender sender, String[] args) {
         Messages messages = Messages.getInstance();
+        
+        if(!(sender instanceof Player)) {
+        	sender.sendMessage(messages.getMessage("onlyPlayer"));
+        	return;
+        }
+        
         Player player = (Player) sender;
 
         if (!player.hasPermission("funnyguilds.admin")) {
