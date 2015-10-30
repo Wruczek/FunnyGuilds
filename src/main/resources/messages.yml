@@ -58,6 +58,7 @@ broadcastValidity: '&7Gildia &b{TAG} &7wygasla&b! &7Jej baza znajdowala sie na x
 broadcastWar: '&7Gildia &4{WINNER}&7 podblila gildie &4{LOSER}&7!!'
 
 # <------- Help Messages -------> #
+onlyPlayer: '&cTylko gracz moze uzywac tej komendy!'
 helpList:
 - '&7---------------------&8[ &aGildie &8]&7---------------------'
 - '&a/zaloz [tag] [nazwa] &8- &7Tworzy gildie'

@@ -1,8 +1,8 @@
 #~-~-~-~-~-~-~-~-~-~-~-~~-~-~-~~#
-#                               #
-#          FunnyGuilds          #
-#          4.0 Cleaned          #
-#                               #
+#                                                         #
+#          FunnyGuilds-Reloaded                  #
+#                  4.0 Alpha                          #
+#                                                         #
 #~-~-~-~-~-~-~-~-~-~-~-~~-~-~-~~#
 
 # Wyswietlana nazwa pluginu
@@ -284,19 +284,19 @@ commands:
   # Komendy administratora
   admin:
     main: 'ga'
-    add: 'ga dodaj'
-    delete: 'ga usun'
-    kick: 'ga wyrzuc'
+    add: 'ga add'
+    delete: 'ga delete'
+    kick: 'ga kick'
     teleport: 'ga tp'
     points: 'ga points'
     kills: 'ga kills'
     deaths: 'ga deaths'
     ban: 'ga ban'
-    lives: 'ga zycia'
-    move: 'ga przenies'
+    lives: 'ga lives'
+    move: 'ga move'
     unban: 'ga unban'
-    validity: 'ga przedluz'
-    name: 'ga nazwa'
+    validity: 'ga validity'
+    name: 'ga name'
 
 # Czy event PlayMoveEvent ma byc aktywny (odpowiada za wyswietlanie powiadomien o wejsciu na teren gildii)
 event-move: true
@@ -306,6 +306,8 @@ database:
   # Silnik bazy danych, MySQL - mysql, SQLite - sqlite
   engine: 'mysql'
   table-schema: 'funnyguilds_{TABLENAME}'
+  # Co ile sekund wtyczka ma zapisywac dane?
+  data-interval: 120
 
   # Ustawienia MySQL
   host: 'localhost'
